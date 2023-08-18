@@ -1,20 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    MAKEFILE                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/04 16:40:09 by wteles-d          #+#    #+#              #
-#    Updated: 2023/07/04 16:40:10 by wteles-d         ###   ########.fr        #
+#    Updated: 2023/08/18 17:19:07 by wteles-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	libftprintf.a
+NAME	=	ps
 
 SRCS	=	$(wildcard *.c)
-
-OBJS	=	$(SRCS:.c=.o)
 
 CC	=	cc
 
@@ -24,14 +22,16 @@ FLAGS	=	-Wall -Werror -Wextra -fPIE -g #-fsanitize=address
 	$(CC) $(FLAGS) -c $^ -o $@
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(NAME):
+	$(MAKE) -C 42_Libft-master
+	$(CC) $(FLAGS) $(SRCS) 42_Libft-master/libft.a -o $(NAME)
 
 clean:
-	rm -rf $(OBJS)	
+	$(MAKE) -C 42_Libft-master clean
 
 fclean: clean
 	rm -rf $(NAME)
+	$(MAKE) -C 42_Libft-master fclean
 
 re: fclean all
 

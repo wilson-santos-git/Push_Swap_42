@@ -1,0 +1,5 @@
+libftTester
+.vscode
+*.gch
+a.out
+libft.h.gch
