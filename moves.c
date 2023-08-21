@@ -6,16 +6,16 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:28:45 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/18 18:53:32 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:23:50 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	do_sa_or_sb(t_lista *node, char c)
+void	do_sa_or_sb(t_node *node, char c)
 {
 	int		t;
-	t_lista	*temp_node;
+	t_node	*temp_node;
 
 	if (!node || !node->next)
 		return ;
@@ -29,16 +29,16 @@ void	do_sa_or_sb(t_lista *node, char c)
 		printf("sb\n");
 }
 
-void	do_ss(t_lista *node_a, t_lista *node_b)
+void	do_ss(t_node *node_a, t_node *node_b)
 {
 	do_sa_or_sb(node_a, 's');
 	do_sa_or_sb(node_b, 's');
 	printf("ss\n");
 }
 
-void	do_pa(t_lista **head_a, t_lista **head_b)
+void	do_pa(t_node **head_a, t_node **head_b)
 {
-	t_lista	*temp_node;
+	t_node	*temp_node;
 
 	if (!*head_b)
 		return ;
@@ -64,9 +64,9 @@ void	do_pa(t_lista **head_a, t_lista **head_b)
 	printf("pa\n");
 }
 
-void	do_pb(t_lista **head_a, t_lista **head_b)
+void	do_pb(t_node **head_a, t_node **head_b)
 {
-	t_lista	*temp_node;
+	t_node	*temp_node;
 
 	if (!*head_a)
 		return ;
@@ -90,4 +90,52 @@ void	do_pb(t_lista **head_a, t_lista **head_b)
 	*head_a = (*head_a)->next;
 	free(temp_node);
 	printf("pb\n");
+}
+
+void	do_ra(t_node **head_a)
+{
+	t_node	*temp_node;
+	t_node	*current_node;
+
+	if (!*head_a)
+		return ;
+	temp_node = new_node((*head_a)->content);
+	if (!temp_node)
+		return ;
+	current_node = (*head_a)->previous;
+	current_node->next = temp_node;
+	temp_node->previous = current_node;
+	current_node = *head_a;
+	*head_a = (*head_a)->next;
+	free(current_node);
+	(*head_a)->previous = temp_node;
+	temp_node->next = *head_a;
+	printf("ra\n");
+}
+
+void	do_rb(t_node **head_b)
+{
+	t_node	*temp_node;
+	t_node	*current_node;
+
+	if (!*head_b)
+		return ;
+	temp_node = new_node((*head_b)->content);
+	if (!temp_node)
+		return ;
+	current_node = (*head_b)->previous;
+	current_node->next = temp_node;
+	temp_node->previous = current_node;
+	current_node = *head_b;
+	*head_b = (*head_b)->next;
+	free(current_node);
+	(*head_b)->previous = temp_node;
+	temp_node->next = *head_b;
+	printf("rb\n");
+}
+
+void	do_rr(t_node **head_a, t_node **head_b)
+{
+	do_ra((*head_a));
+	do_rb((*head_b));
 }

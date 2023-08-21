@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:15:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/18 18:45:40 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:20:31 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 
 #include "push_swap.h"
 
-t_lista	*new_node(int content)
+t_node	*new_node(int content)
 {
-	t_lista	*p;
+	t_node	*p;
 
-	p = malloc(sizeof(t_lista));
+	p = malloc(sizeof(t_node));
 	if (!p)
 		return (NULL);
 	p->next = NULL;
@@ -32,10 +32,10 @@ t_lista	*new_node(int content)
 
 int	main(int argc, char **argv)
 {
-	t_lista	*temp_node;
-	t_lista	*head_node_a;
-	t_lista	*head_node_b;
-	t_lista	*current_node;
+	t_node	*temp_node;
+	t_node	*head_node_a;
+	t_node	*head_node_b;
+	t_node	*current_node;
 	int		i;
 
 	i = 1;
@@ -60,22 +60,12 @@ int	main(int argc, char **argv)
 	}
 	head_node_a->previous = current_node;
 	current_node->next = head_node_a;
-	do_pb(&head_node_a, &head_node_b);
-	do_pb(&head_node_a, &head_node_b);
-	do_pa(&head_node_a, &head_node_b);
-	do_pa(&head_node_a, &head_node_b);
+	do_ra(&head_node_a);
+	do_ra(&head_node_a);
+	do_ra(&head_node_a);
 	i = 1;
 	current_node = head_node_a;
 	printf("LISTA A:\n");
-	while (i < argc)
-	{
-		printf("NUMBER: %i\n", current_node->content);
-		current_node = current_node->next;
-		i++;
-	}
-	i = 1;
-	current_node = head_node_b;
-	printf("LISTA B:\n");
 	while (i < argc)
 	{
 		printf("NUMBER: %i\n", current_node->content);
