@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:15:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/21 14:20:31 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:37:49 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,51 @@ int	main(int argc, char **argv)
 	}
 	head_node_a->previous = current_node;
 	current_node->next = head_node_a;
-	do_ra(&head_node_a);
-	do_ra(&head_node_a);
-	do_ra(&head_node_a);
-	i = 1;
-	current_node = head_node_a;
-	printf("LISTA A:\n");
-	while (i < argc)
-	{
-		printf("NUMBER: %i\n", current_node->content);
-		current_node = current_node->next;
-		i++;
-	}
+
+	// //CHOOSE MOVES TO TEST HERE----------------------------
+	// do_pb(&head_node_a, &head_node_b);
+	// do_pb(&head_node_a, &head_node_b);
+	// do_pb(&head_node_a, &head_node_b);
+	// do_pb(&head_node_a, &head_node_b);
+	// i = 1;
+	// current_node = head_node_a;
+	// printf("LISTA A:\n");
+	// while (i < argc - 4)
+	// {
+	// 	printf("NUMBER: %i\n", current_node->content);
+	// 	current_node = current_node->next;
+	// 	i++;
+	// }
+	// i = 1;
+	// current_node = head_node_b;
+	// printf("LISTA B:\n");
+	// while (i < 5)
+	// {
+	// 	printf("NUMBER: %i\n", current_node->content);
+	// 	current_node = current_node->next;
+	// 	i++;
+	// }
+	// do_rra_or_rrb(&head_node_a, 'a');
+	// do_rra_or_rrb(&head_node_b, 'b');
+	// i = 1;
+	// current_node = head_node_a;
+	// printf("LISTA A:\n");
+	// while (i < argc - 4)
+	// {
+	// 	printf("NUMBER: %i\n", current_node->content);
+	// 	current_node = current_node->next;
+	// 	i++;
+	// }
+	// i = 1;
+	// current_node = head_node_b;
+	// printf("LISTA B:\n");
+	// while (i < 5)
+	// {
+	// 	printf("NUMBER: %i\n", current_node->content);
+	// 	current_node = current_node->next;
+	// 	i++;
+	// }
+	// //CHOOSE MOVES TO TEST HERE----------------------------
+
 	return (0);
 }
