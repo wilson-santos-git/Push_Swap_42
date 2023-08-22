@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:15:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/21 17:37:49 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:11:29 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,19 @@
 
 #include "push_swap.h"
 
-t_node	*new_node(int content)
+t_lista	*init_lists()
+{
+	t_lista	*lista;
+	lista = malloc(sizeof(t_lista));
+	if (!lista)
+		return (NULL);
+	lista->size = 0;
+	lista->head = NULL;
+	lista->tail = NULL;
+	return (lista);
+}
+
+t_node	*init_node(int content)
 {
 	t_node	*p;
 
@@ -30,37 +42,73 @@ t_node	*new_node(int content)
 	return (p);
 }
 
-int	main(int argc, char **argv)
+void	parse_args(int argc, char **argv, t_lista *lista)
 {
-	t_node	*temp_node;
-	t_node	*head_node_a;
-	t_node	*head_node_b;
-	t_node	*current_node;
+	// verify isdigit before atoi
+	// verify ++ --
+	// verify dups
 	int		i;
-
+	t_node	*temp_node;
+	t_node	*current_temp_node;
+	
 	i = 1;
-	if (argc < 2)
-		return (0);
-	head_node_a = new_node(ft_atoi(argv[i++]));
-	if (!head_node_a)
-		return (0);
-	current_node = head_node_a;
-	head_node_b = NULL;
-	printf("NUMBER: %i\n", current_node->content);
 	while (i < argc)
 	{
-		temp_node = new_node(ft_atoi(argv[i]));
+		temp_node = init_node(ft_atoi(argv[i]));
 		if (!temp_node)
-			return (0);
-		temp_node->previous = current_node;
-		current_node->next = temp_node;
-		current_node = temp_node;
-		printf("NUMBER: %i\n", current_node->content);
+			return ;
+		if (i == 1)
+		{
+			lista->head = temp_node;
+			current_temp_node = lista->head;
+		}
+		printf("NUMBER: %i\n", temp_node->content);
+		temp_node->previous = current_temp_node;
+		current_temp_node->next = temp_node;
+		current_temp_node = temp_node;
 		i++;
 	}
-	head_node_a->previous = current_node;
-	current_node->next = head_node_a;
+}
 
+int	main(int argc, char **argv)
+{
+	t_main	main;
+
+	if (argc < 2)
+		return (0);
+	main.lista_a = init_lists();
+	main.lista_b = init_lists();
+	parse_args(argc, argv, main.lista_a);
+	
+	// head_node_a->previous = current_node;
+	// current_node->next = head_node_a;
+	// current_node = head_node_a;
+	// while (i)
+	// {
+	// 	if ((head_node_a->content) > (head_node_a->next->content))
+	// 		do_ra_or_rb(&head_node_a, 'a');
+	// 	else
+	// 		do_pb(&head_node_a, &head_node_b);
+	// 	if (head_node_b == NULL)
+	// 	{
+	// 		do_pa(&head_node_a, &head_node_b);
+	// 		if(head_node_b == NULL)
+	// 			break ;
+	// 	}
+	// }
+	// current_node = head_node_a;
+	// i = 1;
+	// while (i < argc)
+	// {
+	// 	temp_node = new_node(ft_atoi(argv[i]));
+	// 	if (!temp_node)
+	// 		return (0);
+	// 	temp_node->previous = current_node;
+	// 	current_node->next = temp_node;
+	// 	current_node = temp_node;
+	// 	printf("NUMBER: %i\n", current_node->content);
+	// 	i++;
+	// }
 	// //CHOOSE MOVES TO TEST HERE----------------------------
 	// do_pb(&head_node_a, &head_node_b);
 	// do_pb(&head_node_a, &head_node_b);

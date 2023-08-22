@@ -6,34 +6,40 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:28:45 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/21 17:09:27 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:28:15 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	do_sa_or_sb(t_node *node, char c)
+bool	do_swap(t_lista *lista)
 {
-	int		t;
-	t_node	*temp_node;
+	int		aux;
 
-	if (!node || !node->next)
-		return ;
-	temp_node = node->next;
-	t = node->content;
-	node->content = temp_node->content;
-	temp_node->content = t;
-	if (c == 'a')
+	if (!lista->head || !lista->head->next)
+		return (false);
+	aux = lista->head->content;
+	lista->head->content = lista->head->next->content;
+	lista->head->next->content = aux;
+	return (true);
+}
+
+void	do_sa(t_lista *lista)
+{
+	if(do_swap(lista))
 		printf("sa\n");
-	else if (c == 'b')
+}
+
+void	do_sb(t_lista *lista)
+{
+	if(do_swap(lista))
 		printf("sb\n");
 }
 
-void	do_ss(t_node *node_a, t_node *node_b)
+void	do_ss(t_lista *lista_a, t_lista *lista_b)
 {
-	do_sa_or_sb(node_a, 's');
-	do_sa_or_sb(node_b, 's');
-	printf("ss\n");
+	if(do_swap(lista_a) && do_swap(lista_b))
+		printf("ss\n");
 }
 
 void	do_pa(t_node **head_a, t_node **head_b)
