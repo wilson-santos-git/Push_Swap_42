@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/22 17:28:43 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/26 17:31:43 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ typedef struct s_main
 	t_lista			*lista_b;
 }					t_main;
 
+void	do_pa(t_main *main);
 t_node	*init_node(int content);
 void	do_sa_or_sb(t_node *node, char c);
 void	do_ra_or_rb(t_node **node, char c);
 void	do_rra_or_rrb(t_node **node, char c);
-void	do_ss(t_node *node_a, t_node *node_b);
 void	do_pb(t_node **head_a, t_node **head_b);
-void	do_pa(t_node **head_a, t_node **head_b);
 void	do_rr(t_node **head_a, t_node **head_b);
 void	do_rrr(t_node **head_a, t_node **head_b);
+void	do_ss(t_lista *lista_a, t_lista *lista_b);
 
 #endif

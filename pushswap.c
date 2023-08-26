@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:15:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/22 17:11:29 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:28:21 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,52 @@ t_node	*init_node(int content)
 	return (p);
 }
 
+int	is_atoiable(int argc, char **argv)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 1;
+	while (i < (size_t)argc)
+	{
+		j = 0;
+		while ((j < ft_strlen(argv[i])))
+		{
+			if (((argv[i][j] == '-' || argv[i][j] == '+') && j != 0) && 
+				(!ft_isdigit(argv[i][j])))
+				return (1); 
+			else
+				j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_dups(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = i + 1;
+		while (j < argc)
+		{
+			printf("%i\n", ft_atoi(argv[i]));
+			printf("%i\n", ft_atoi(argv[j]));
+			if (ft_atoi(argv[i]) == ft_atoi(argv[j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	parse_args(int argc, char **argv, t_lista *lista)
 {
-	// verify isdigit before atoi
-	// verify ++ --
 	// verify dups
 	int		i;
 	t_node	*temp_node;
@@ -75,6 +117,8 @@ int	main(int argc, char **argv)
 	t_main	main;
 
 	if (argc < 2)
+		return (0);
+	if (!is_atoiable(argc, argv) && !check_dups(argc, argv))
 		return (0);
 	main.lista_a = init_lists();
 	main.lista_b = init_lists();
