@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/26 17:31:43 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:02:23 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@
 typedef struct s_node
 {
 	int				id;
-	int				content;
 	struct s_node	*next;
+	int				content;
 	struct s_node	*previous;
 }					t_node;
 
 typedef struct s_lista
 {
 	int				size;
-	t_node			*head;
 	t_node			*tail;
+	t_node			*head;
 }					t_lista;
 
 typedef struct s_main
@@ -40,14 +40,28 @@ typedef struct s_main
 	t_lista			*lista_b;
 }					t_main;
 
+t_lista	*init_lists(void);
 void	do_pa(t_main *main);
+void	do_pb(t_main *main);
+void	do_sa(t_lista *lista);
+void	do_sb(t_lista *lista);
+void	do_ra(t_lista *lista);
+void	do_rb(t_lista *lista);
+void	do_rra(t_lista *lista);
+void	do_rrb(t_lista *lista);
 t_node	*init_node(int content);
-void	do_sa_or_sb(t_node *node, char c);
-void	do_ra_or_rb(t_node **node, char c);
-void	do_rra_or_rrb(t_node **node, char c);
-void	do_pb(t_node **head_a, t_node **head_b);
-void	do_rr(t_node **head_a, t_node **head_b);
-void	do_rrr(t_node **head_a, t_node **head_b);
+bool	do_swap(t_lista *lista);
+void	free_list(t_lista *lista);
+void	print_lists(t_main *main);
+bool	do_rotate(t_lista *lista);
+void	sorting_algorithm(t_main *main);
+void	fix_missing_head_a(t_main *main);
+void	fix_missing_head_b(t_main *main);
+int		check_argv(int argc, char **argv);
+int		check_dups(int argc, char **argv);
+bool	do_reverse_rotate(t_lista *lista);
 void	do_ss(t_lista *lista_a, t_lista *lista_b);
+void	do_rrr(t_lista *lista_a, t_lista *lista_b);
+void	parse_args(int argc, char **argv, t_lista *lista);
 
 #endif
