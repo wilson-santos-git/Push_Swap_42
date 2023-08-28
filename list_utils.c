@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/28 17:05:14 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:07:09 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	parse_args(int argc, char **argv, t_lista *lista)
 			lista->head = temp_node;
 			current_temp_node = lista->head;
 		}
-		printf("NUMBER: %i\n", temp_node->content);
 		temp_node->previous = current_temp_node;
 		current_temp_node->next = temp_node;
 		current_temp_node = temp_node;
@@ -115,31 +114,38 @@ void	free_list(t_lista *lista)
 
 void	print_lists(t_main *main)
 {
+	int		i;
 	t_node	*temp_node;
 
+	i = 1;
+	// printf("LISTA A SIZE: %i\n", main->lista_a->size);
 	if (main->lista_a->head)
 	{
 		temp_node = main->lista_a->head;
 		printf("LISTA A: ");
-		while (1)
+		while (i < main->lista_a->size)
 		{
 			printf("%i, ", temp_node->content);
 			if (temp_node->next->content == main->lista_a->tail->content)
 				break ;
 			temp_node = temp_node->next;
+			i++;
 		}
 		printf("%i\n", main->lista_a->tail->content);
 	}
+	i = 1;
+	// printf("LISTA B SIZE: %i\n", main->lista_b->size);
 	if (main->lista_b->head)
 	{
 		temp_node = main->lista_b->head;
 		printf("LISTA B: ");
-		while (1)
+		while (i < main->lista_b->size)
 		{
 			printf("%i, ", temp_node->content);
 			if (temp_node->next->content == main->lista_b->tail->content)
 				break ;
 			temp_node = temp_node->next;
+			i++;
 		}
 		printf("%i\n", main->lista_b->tail->content);
 	}

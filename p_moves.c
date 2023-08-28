@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/28 16:11:18 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:57:45 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,13 @@ void	do_pa(t_main *main)
 		fix_missing_head_a(main);
 	else
 	{
-		main->lista_b->head = main->lista_b->head->next;
-		main->lista_b->head->previous = temp_node->previous;
+		if (main->lista_b->size == 1)
+			main->lista_b = NULL;
+		else
+		{
+			main->lista_b->head = main->lista_b->head->next;
+			main->lista_b->head->previous = temp_node->previous;
+		}
 		temp_node->previous = main->lista_a->head->previous;
 		temp_node->next = main->lista_a->head;
 		main->lista_a->head->previous = temp_node;
@@ -51,6 +56,11 @@ void	do_pa(t_main *main)
 			main->lista_a->tail->previous = main->lista_a->head->next;
 		}
 	}
+	main->lista_a->size++;
+	main->lista_b->size--;
+	if (main->lista_b->size == 0)
+		main->lista_b = NULL;
+	printf("pa\n");
 }
 
 void	fix_missing_head_b(t_main *main)
@@ -77,10 +87,19 @@ void	do_pb(t_main *main)
 	temp_node = main->lista_a->head;
 	if (!main->lista_b->head)
 		fix_missing_head_b(main);
+	else if (main->lista_a->size == 1)
+	{
+		main->lista_a = NULL; 
+	}
 	else
 	{
-		main->lista_a->head = main->lista_b->head->next;
-		main->lista_a->head->previous = temp_node->previous;
+		if (main->lista_a->size == 1)
+			main->lista_a = NULL;
+		else
+		{
+			main->lista_a->head = main->lista_a->head->next;
+			main->lista_a->head->previous = temp_node->previous;
+		}
 		temp_node->previous = main->lista_b->head->previous;
 		temp_node->next = main->lista_b->head;
 		main->lista_b->head->previous = temp_node;
@@ -92,4 +111,9 @@ void	do_pb(t_main *main)
 			main->lista_b->tail->previous = main->lista_b->head->next;
 		}
 	}
+	main->lista_b->size++;
+	main->lista_a->size--;
+	if (main->lista_a->size == 0)
+		main->lista_a = NULL;
+	printf("pb\n");
 }

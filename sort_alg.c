@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:45:12 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/28 17:06:12 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:05:42 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@ void	sorting_algorithm(t_main *main)
 {
 	while (1)
 	{
-		if ((main->lista_a->head->content)
-			> (main->lista_a->head->next->content))
+		if (((main->lista_a->head->content)
+				> (main->lista_a->head->next->content))
+			&& main->lista_a->size > 1)
 			do_ra(main->lista_a);
-		else
+		else if (main->lista_a->head)
 			do_pb(main);
-		if (!main->lista_b->head)
+		if (!main->lista_a->head)
 		{
-			do_pa(main);
-			if (!main->lista_b->head)
-				break ;
+			printf("uh\n");
+			while (main->lista_b->head)
+				do_pa(main);
+			break ;
 		}
+		print_lists(main);
 	}
 	printf("!!! DONE !!!\n");
 }

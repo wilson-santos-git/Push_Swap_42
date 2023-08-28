@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:15:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/28 17:09:41 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:46:14 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int argc, char **argv)
 	main.lista_a->size = argc - 1;
 	main.lista_b = init_lists();
 	parse_args(argc, argv, main.lista_a);
+	print_lists(&main);
 	sorting_algorithm(&main);
 	print_lists(&main);
 
