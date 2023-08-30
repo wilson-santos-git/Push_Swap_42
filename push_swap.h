@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/28 17:02:23 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:49:46 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ bool	do_swap(t_lista *lista);
 void	free_list(t_lista *lista);
 void	print_lists(t_main *main);
 bool	do_rotate(t_lista *lista);
+void	print_head_tail(t_main *main);
 void	sorting_algorithm(t_main *main);
 void	fix_missing_head_a(t_main *main);
 void	fix_missing_head_b(t_main *main);

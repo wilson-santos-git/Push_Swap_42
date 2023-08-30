@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/28 18:07:09 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:04:55 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,41 +112,61 @@ void	free_list(t_lista *lista)
 	free(temp_node);
 }
 
+void	print_head_tail(t_main *main)
+{
+	if (main->lista_a->head && main->lista_a->tail)
+	{
+		printf("LISTA A HEAD: %i\n", main->lista_a->head->content);
+		printf("LISTA A TAIL: %i\n", main->lista_a->tail->content);
+	}
+	if (main->lista_b->head && main->lista_b->tail)
+	{
+		printf("LISTA B HEAD: %i\n", main->lista_b->head->content);
+		printf("LISTA B TAIL: %i\n", main->lista_b->tail->content);
+	}
+}
+
 void	print_lists(t_main *main)
 {
 	int		i;
 	t_node	*temp_node;
 
 	i = 1;
-	// printf("LISTA A SIZE: %i\n", main->lista_a->size);
-	if (main->lista_a->head)
+	//printf("LISTA A SIZE: %i\n", main->lista_a->size);
+	if (main->lista_a->size > 0)
 	{
 		temp_node = main->lista_a->head;
 		printf("LISTA A: ");
 		while (i < main->lista_a->size)
 		{
 			printf("%i, ", temp_node->content);
+			//printf("P:   %i\nC: ->%i<-\nN:   %i\n\n", temp_node->previous->content, temp_node->content, temp_node->next->content);
 			if (temp_node->next->content == main->lista_a->tail->content)
 				break ;
 			temp_node = temp_node->next;
 			i++;
 		}
-		printf("%i\n", main->lista_a->tail->content);
+		temp_node = temp_node->next;
+		printf("%i\n", temp_node->content);
+		//printf("P:   %i\nC: ->%i<-\nN:   %i\n\n", main->lista_a->tail->previous->content, main->lista_a->tail->content, main->lista_a->tail->next->content);
 	}
 	i = 1;
-	// printf("LISTA B SIZE: %i\n", main->lista_b->size);
-	if (main->lista_b->head)
+	//printf("LISTA B SIZE: %i\n", main->lista_b->size);
+	if (main->lista_b->size > 0)
 	{
 		temp_node = main->lista_b->head;
 		printf("LISTA B: ");
 		while (i < main->lista_b->size)
 		{
 			printf("%i, ", temp_node->content);
+			//printf("P:   %i\nC: ->%i<-\nN:   %i\n\n", temp_node->previous->content, temp_node->content, temp_node->next->content);
 			if (temp_node->next->content == main->lista_b->tail->content)
 				break ;
 			temp_node = temp_node->next;
 			i++;
 		}
-		printf("%i\n", main->lista_b->tail->content);
+		temp_node = temp_node->next;
+		printf("%i\n", temp_node->content);
+		//printf("P:   %i\nC: ->%i<-\nN:   %i\n\n", main->lista_b->tail->previous->content, main->lista_b->tail->content, main->lista_b->tail->next->content);
 	}
 }
