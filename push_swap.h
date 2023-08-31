@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/30 14:49:46 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/31 21:29:19 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	do_rra(t_lista *lista);
 void	do_rrb(t_lista *lista);
 t_node	*init_node(int content);
 bool	do_swap(t_lista *lista);
+bool	is_sorted(t_lista *lista);
 void	free_list(t_lista *lista);
 void	print_lists(t_main *main);
 bool	do_rotate(t_lista *lista);
@@ -64,5 +65,6 @@ bool	do_reverse_rotate(t_lista *lista);
 void	do_ss(t_lista *lista_a, t_lista *lista_b);
 void	do_rrr(t_lista *lista_a, t_lista *lista_b);
 void	parse_args(int argc, char **argv, t_lista *lista);
+void	badgle(t_main *main);
 
 #endif

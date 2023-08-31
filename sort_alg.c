@@ -6,13 +6,20 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:45:12 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/30 18:57:22 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/31 21:28:48 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 void	sorting_algorithm(t_main *main)
+{
+	while (is_sorted(main->lista_a) == false)
+		badgle(main);
+	printf("!!! DONE !!!\n");
+}
+
+void	badgle(t_main *main)
 {
 	while (main->lista_a->size > 0)
 	{
@@ -42,5 +49,4 @@ void	sorting_algorithm(t_main *main)
 		}
 		print_lists(main);
 	}
-	printf("!!! DONE !!!\n");
 }

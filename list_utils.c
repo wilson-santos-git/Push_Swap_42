@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/30 18:04:55 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/08/31 21:16:51 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,18 +112,23 @@ void	free_list(t_lista *lista)
 	free(temp_node);
 }
 
-void	print_head_tail(t_main *main)
+bool	is_sorted(t_lista *lista)
 {
-	if (main->lista_a->head && main->lista_a->tail)
+	int		i;
+	t_node	*temp_node;
+	
+	i = 0;
+	if (lista->size == 0)
+		return (false);
+	temp_node = lista->head;
+	while (i < lista->size)
 	{
-		printf("LISTA A HEAD: %i\n", main->lista_a->head->content);
-		printf("LISTA A TAIL: %i\n", main->lista_a->tail->content);
+		if (temp_node->content > temp_node->next->content)
+			return (false);
+		temp_node = temp_node->next;
+		i++;
 	}
-	if (main->lista_b->head && main->lista_b->tail)
-	{
-		printf("LISTA B HEAD: %i\n", main->lista_b->head->content);
-		printf("LISTA B TAIL: %i\n", main->lista_b->tail->content);
-	}
+	return (true);
 }
 
 void	print_lists(t_main *main)
