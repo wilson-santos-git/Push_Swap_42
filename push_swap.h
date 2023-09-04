@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/31 21:29:19 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:29:17 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ bool	do_reverse_rotate(t_lista *lista);
 void	do_ss(t_lista *lista_a, t_lista *lista_b);
 void	do_rrr(t_lista *lista_a, t_lista *lista_b);
 void	parse_args(int argc, char **argv, t_lista *lista);
-void	badgle(t_main *main);
+void	sort_alg(t_main *main);
 
 #endif
