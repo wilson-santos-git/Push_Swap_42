@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/31 21:16:51 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:26:51 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	check_dups(int argc, char **argv)
 		while (j < argc)
 		{
 			if (ft_atoi(argv[i]) == ft_atoi(argv[j]))
-			{
-				printf("FOUND DUP X(\n");
 				return (1);
-			}
 			j++;
 		}
 		i++;
@@ -48,10 +45,7 @@ int	check_argv(int argc, char **argv)
 		{
 			if (((argv[i][j] == '-' || argv[i][j] == '+') && j != 0) && 
 				(!ft_isdigit(argv[i][j])))
-			{
-				printf("FOUND NON DIGIT X(\n");
 				return (0); 
-			}
 			else
 				j++;
 		}
@@ -59,7 +53,6 @@ int	check_argv(int argc, char **argv)
 	}
 	if (check_dups(argc, argv))
 		return (0);
-	printf("ALL GOOD :D\n");
 	return (1);
 }
 
@@ -105,10 +98,8 @@ void	free_list(t_lista *lista)
 			break ;
 		delete_node = temp_node;
 		temp_node = temp_node->previous;
-		printf("DELETED NODE: %i\n", delete_node->content);
 		free(delete_node);
 	}
-	printf("DELETED NODE: %i\n", temp_node->content);
 	free(temp_node);
 }
 
@@ -116,7 +107,7 @@ bool	is_sorted(t_lista *lista)
 {
 	int		i;
 	t_node	*temp_node;
-	
+
 	i = 0;
 	if (lista->size == 0)
 		return (false);

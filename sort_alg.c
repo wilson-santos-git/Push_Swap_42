@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:45:12 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/04 18:45:41 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:25:17 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	sort_alg(t_main *main)
 {
 	int	current_b_max;
 	int	current_b_min;
+	int	counter;
 
+	counter = 0;
 	do_pb(main);
 	do_pb(main);
 	if (main->lista_b->head->content < main->lista_b->head->next->content)
@@ -45,62 +47,147 @@ void	sort_alg(t_main *main)
 		}
 		else
 		{
+			counter = 0;
 			if ((main->lista_a->head->content - current_b_min)
 				< (current_b_max - main->lista_a->head->content))
 			{
 				while (1)
 				{
-					do_rrb(main->lista_b);
-					if (main->lista_a->head->content
-						> main->lista_b->head->content
-						&& main->lista_a->head->content
-						< main->lista_b->tail->content)
-						break ;
-				}
-				do_pb(main);
-				while (main->lista_b->head->content != current_b_min)
-				{
-					if (main->lista_a->head->content
-						> main->lista_b->head->content
-						&& main->lista_a->head->content
-						< main->lista_b->tail->content)
+					if ((main->lista_a->head->content
+							< main->lista_b->tail->content)
+						&& (main->lista_a->head->content
+							> main->lista_b->head->content))
 					{
 						do_pb(main);
+						counter++;
 						break ;
 					}
-					do_rb(main->lista_b);
+					else
+					{
+						do_rrb(main->lista_b);
+						counter++;
+					}
 				}
-				do_rb(main->lista_b);
+				while (counter > 0)
+				{
+					do_rb(main->lista_b);
+					counter--;
+				}
 			}
 			else
 			{
 				while (1)
 				{
-					do_rb(main->lista_b);
-					if (main->lista_a->head->content
-						> main->lista_b->head->content
-						&& main->lista_a->head->content
-						< main->lista_b->tail->content)
-						break ;
-				}
-				do_pb(main);
-				while (main->lista_b->head->content != current_b_max)
-				{
-					if (main->lista_a->head->content
-						> main->lista_b->head->content
-						&& main->lista_a->head->content
-						< main->lista_b->tail->content)
+					if ((main->lista_a->head->content
+							< main->lista_b->tail->content)
+						&& (main->lista_a->head->content
+							> main->lista_b->head->content))
 					{
 						do_pb(main);
 						break ;
 					}
-					do_rrb(main->lista_b);
+					else
+					{
+						do_rb(main->lista_b);
+						counter++;
+					}
 				}
-				do_rrb(main->lista_b);
+				while (counter > 0)
+				{
+					do_rrb(main->lista_b);
+					counter--;
+				}
 			}
+			if (main->lista_b->head->content > current_b_max)
+				current_b_max = main->lista_b->head->content;
+			else if (main->lista_b->tail->content < current_b_min)
+				current_b_min = main->lista_b->tail->content;
 		}
 	}
 }
+
+// void	sort_alg(t_main *main)
+// {
+// 	int	current_b_max;
+// 	int	current_b_min;
+
+// 	do_pb(main);
+// 	do_pb(main);
+// 	if (main->lista_b->head->content < main->lista_b->head->next->content)
+// 		do_rb(main->lista_b);
+// 	current_b_max = main->lista_b->head->content;
+// 	current_b_min = main->lista_b->head->next->content;
+// 	while (main->lista_a->size > 0)
+// 	{
+// 		if (main->lista_a->head->content > current_b_max)
+// 		{
+// 			do_pb(main);
+// 			current_b_max = main->lista_b->head->content;
+// 		}
+// 		else if (main->lista_a->head->content < current_b_min)
+// 		{
+// 			do_pb(main);
+// 			current_b_min = main->lista_b->head->content;
+// 			do_rb(main->lista_b);
+// 		}
+// 		else
+// 		{
+// 			if ((main->lista_a->head->content - current_b_min)
+// 				< (current_b_max - main->lista_a->head->content))
+// 			{
+// 				while (1)
+// 				{
+// 					do_rrb(main->lista_b);
+// 					if (main->lista_a->head->content
+// 						> main->lista_b->head->content
+// 						&& main->lista_a->head->content
+// 						< main->lista_b->tail->content)
+// 						break ;
+// 				}
+// 				do_pb(main);
+// 				while (main->lista_b->head->content != current_b_min)
+// 				{
+// 					if (main->lista_a->head->content
+// 						> main->lista_b->head->content
+// 						&& main->lista_a->head->content
+// 						< main->lista_b->tail->content)
+// 					{
+// 						do_pb(main);
+// 						break ;
+// 					}
+// 					do_rb(main->lista_b);
+// 				}
+// 				do_rb(main->lista_b);
+// 			}
+// 			else
+// 			{
+// 				while (1)
+// 				{
+// 					do_rb(main->lista_b);
+// 					if (main->lista_a->head->content
+// 						> main->lista_b->head->content
+// 						&& main->lista_a->head->content
+// 						< main->lista_b->tail->content)
+// 						break ;
+// 				}
+// 				do_pb(main);
+// 				while (main->lista_b->head->content != current_b_max)
+// 				{
+// 					if (main->lista_a->head->content
+// 						> main->lista_b->head->content
+// 						&& main->lista_a->head->content
+// 						< main->lista_b->tail->content)
+// 					{
+// 						do_pb(main);
+// 						break ;
+// 					}
+// 					do_rrb(main->lista_b);
+// 				}
+// 				do_rrb(main->lista_b);
+// 			}
+// 		}
+// 	}
+// }
 
 // void	sort_alg(t_main *main)
 // {
