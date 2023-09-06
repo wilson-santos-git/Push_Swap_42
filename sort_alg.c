@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 16:45:12 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/05 16:25:17 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:52:57 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,92 +19,184 @@ void	sorting_algorithm(t_main *main)
 		do_pa(main);
 }
 
+int	count_moves(t_lista *lista, int nbr)
+{
+	int		i;
+	int		counter;
+	t_node	*temp_node;
+
+	i = 0;
+	counter = 0;
+	temp_node = lista->head;
+	while (i < lista->size)
+	{
+		printf("PREVIOUS: %i\n", temp_node->previous->content);
+		printf("NBR:   -> %i <-\n", nbr);
+		printf("CURRENT:  %i\n", temp_node->content);
+		printf("\n");
+		if (nbr < temp_node->previous->content
+			&& nbr > temp_node->content)
+		{
+			printf("FOUND LOCATION\n");
+			printf("ROTATE B %i TIMES\n", counter);
+			return (counter);
+		}
+		else
+		{
+			temp_node = temp_node->next;
+			counter++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+t_node	*find_best_num(t_main *main)
+{
+	int		counter_a;
+	int		counter_b;
+	int		cheapest;
+	t_node	*temp_node;
+	t_node	*best_node;
+
+	counter_a = 0;
+	cheapest = 2000;
+	temp_node = main->lista_a->head;
+	while (1)
+	{
+		counter_b = count_moves(main->lista_b, temp_node->content);
+		if (counter_a + counter_b < cheapest)
+		{
+			cheapest = counter_a + counter_b;
+			best_node = temp_node;
+		}
+		temp_node = temp_node->next;
+		counter_a++;
+		if (temp_node->content == main->lista_a->head->content)
+			break ;
+	}
+	return (best_node);
+}
+
 void	sort_alg(t_main *main)
 {
-	int	current_b_max;
-	int	current_b_min;
-	int	counter;
+	int		rot_a;
+	int		rot_b;
+	t_node	*cheap_node;
 
-	counter = 0;
 	do_pb(main);
 	do_pb(main);
 	if (main->lista_b->head->content < main->lista_b->head->next->content)
 		do_rb(main->lista_b);
-	current_b_max = main->lista_b->head->content;
-	current_b_min = main->lista_b->head->next->content;
 	while (main->lista_a->size > 0)
 	{
-		if (main->lista_a->head->content > current_b_max)
+		cheap_node = find_best_num(main);
+		print_lists(main);
+		printf("CHEAPEST NUMBER : %i\n", cheap_node->content);
+		rot_a = 0;
+		while (main->lista_a->head->content != cheap_node->content)
 		{
-			do_pb(main);
-			current_b_max = main->lista_b->head->content;
+			do_ra(main->lista_a);
+			rot_a++;
+			printf("ROTATIONS A : %i\n", rot_a);
 		}
-		else if (main->lista_a->head->content < current_b_min)
+		rot_b = count_moves(main->lista_b, cheap_node->content);
+		printf("ROTATIONS B : %i\n", rot_b);
+		while (rot_b > 0)
 		{
-			do_pb(main);
-			current_b_min = main->lista_b->head->content;
 			do_rb(main->lista_b);
+			rot_b--;
 		}
-		else
-		{
-			counter = 0;
-			if ((main->lista_a->head->content - current_b_min)
-				< (current_b_max - main->lista_a->head->content))
-			{
-				while (1)
-				{
-					if ((main->lista_a->head->content
-							< main->lista_b->tail->content)
-						&& (main->lista_a->head->content
-							> main->lista_b->head->content))
-					{
-						do_pb(main);
-						counter++;
-						break ;
-					}
-					else
-					{
-						do_rrb(main->lista_b);
-						counter++;
-					}
-				}
-				while (counter > 0)
-				{
-					do_rb(main->lista_b);
-					counter--;
-				}
-			}
-			else
-			{
-				while (1)
-				{
-					if ((main->lista_a->head->content
-							< main->lista_b->tail->content)
-						&& (main->lista_a->head->content
-							> main->lista_b->head->content))
-					{
-						do_pb(main);
-						break ;
-					}
-					else
-					{
-						do_rb(main->lista_b);
-						counter++;
-					}
-				}
-				while (counter > 0)
-				{
-					do_rrb(main->lista_b);
-					counter--;
-				}
-			}
-			if (main->lista_b->head->content > current_b_max)
-				current_b_max = main->lista_b->head->content;
-			else if (main->lista_b->tail->content < current_b_min)
-				current_b_min = main->lista_b->tail->content;
-		}
+		do_pb(main);
 	}
 }
+
+// void	sort_alg(t_main *main)
+// {
+// 	int	current_b_max;
+// 	int	current_b_min;
+// 	int	counter;
+
+// 	counter = 0;
+// 	do_pb(main);
+// 	do_pb(main);
+// 	if (main->lista_b->head->content < main->lista_b->head->next->content)
+// 		do_rb(main->lista_b);
+// 	current_b_max = main->lista_b->head->content;
+// 	current_b_min = main->lista_b->head->next->content;
+// 	while (main->lista_a->size > 0)
+// 	{
+// 		if (main->lista_a->head->content > current_b_max)
+// 		{
+// 			do_pb(main);
+// 			current_b_max = main->lista_b->head->content;
+// 		}
+// 		else if (main->lista_a->head->content < current_b_min)
+// 		{
+// 			do_pb(main);
+// 			current_b_min = main->lista_b->head->content;
+// 			do_rb(main->lista_b);
+// 		}
+// 		else
+// 		{
+// 			counter = 0;
+// 			if ((main->lista_a->head->content - current_b_min)
+// 				< (current_b_max - main->lista_a->head->content))
+// 			{
+// 				while (1)
+// 				{
+// 					if ((main->lista_a->head->content
+// 							< main->lista_b->tail->content)
+// 						&& (main->lista_a->head->content
+// 							> main->lista_b->head->content))
+// 					{
+// 						do_pb(main);
+// 						counter++;
+// 						break ;
+// 					}
+// 					else
+// 					{
+// 						do_rrb(main->lista_b);
+// 						counter++;
+// 					}
+// 				}
+// 				while (counter > 0)
+// 				{
+// 					do_rb(main->lista_b);
+// 					counter--;
+// 				}
+// 			}
+// 			else
+// 			{
+// 				while (1)
+// 				{
+// 					if ((main->lista_a->head->content
+// 							< main->lista_b->tail->content)
+// 						&& (main->lista_a->head->content
+// 							> main->lista_b->head->content))
+// 					{
+// 						do_pb(main);
+// 						break ;
+// 					}
+// 					else
+// 					{
+// 						do_rb(main->lista_b);
+// 						counter++;
+// 					}
+// 				}
+// 				while (counter > 0)
+// 				{
+// 					do_rrb(main->lista_b);
+// 					counter--;
+// 				}
+// 			}
+// 			if (main->lista_b->head->content > current_b_max)
+// 				current_b_max = main->lista_b->head->content;
+// 			else if (main->lista_b->tail->content < current_b_min)
+// 				current_b_min = main->lista_b->tail->content;
+// 		}
+// 	}
+// }
 
 // void	sort_alg(t_main *main)
 // {
