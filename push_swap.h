@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/06 18:40:49 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/08 20:46:53 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ typedef struct s_main
 	t_lista			*lista_b;
 }					t_main;
 
+typedef struct s_list_utils
+{
+	int		max_number;
+	int		min_number;
+	int		cheapest_rots_a;
+	int		cheapest_rots_b;
+	int		cheapest_content;
+}					t_list_utils;
+
 t_lista	*init_lists(void);
 void	do_pa(t_main *main);
 void	do_pb(t_main *main);
@@ -64,9 +73,12 @@ void	fix_missing_head_b(t_main *main);
 int		check_argv(int argc, char **argv);
 int		check_dups(int argc, char **argv);
 bool	do_reverse_rotate(t_lista *lista);
-int		count_moves(t_lista *lista, int nbr);
 void	do_ss(t_lista *lista_a, t_lista *lista_b);
 void	do_rrr(t_lista *lista_a, t_lista *lista_b);
 void	parse_args(int argc, char **argv, t_lista *lista);
+int		count_moves(t_lista	*lista, int	current_number_a, t_list_utils *best);
+t_list_utils	find_cheapest_node(t_main *main);
+void	sorting_algorithm(t_main *main);
+void	do_rr(t_lista *lista_a, t_lista *lista_b);
 
 #endif
