@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:50:25 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/28 16:41:15 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:40:01 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ bool	do_reverse_rotate(t_lista *lista)
 	return (true);
 }
 
-void	do_rra(t_lista *lista)
+void	rra(t_lista *lista)
 {
 	if (do_reverse_rotate(lista))
 		printf("rra\n");
 }
 
-void	do_rrb(t_lista *lista)
+void	rrb(t_lista *lista)
 {
 	if (do_reverse_rotate(lista))
 		printf("rrb\n");
 }
 
-void	do_rrr(t_lista *lista_a, t_lista *lista_b)
+void	rrr(t_lista *lista_a, t_lista *lista_b)
 {
 	if (do_reverse_rotate(lista_a) && do_reverse_rotate(lista_b))
 		printf("rrr\n");

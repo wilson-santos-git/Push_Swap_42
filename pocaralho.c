@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 23:15:16 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/08 20:47:44 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/11 19:30:45 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,25 @@ void	find_max_min(t_lista *lista, t_list_utils *best)
 	}
 }
 
-int	count_moves(t_lista	*lista, int	current_number_a, t_list_utils *best)
+int	get_correct_counter(int size, int counter, t_list_utils *current, bool is_rot_b)
+{
+	
+	if (counter >= size / 2)
+	{
+		if (is_rot_b)
+			current->rev_rot_b = true;
+		else
+			current->rev_rot_a = true;
+		counter = size - counter;
+	}
+	return (counter);
+}
+
+int	count_moves(t_lista	*lista, int	current_number_a, t_list_utils *best, t_list_utils *current)
 {
 	int		counter;
 	t_node *temp_node;
+	(void) current;
 	
 	counter = 0;
 	temp_node = lista->head;
@@ -50,16 +65,14 @@ int	count_moves(t_lista	*lista, int	current_number_a, t_list_utils *best)
 			temp_node = temp_node->next;
 			counter++;
 		}
-		return (counter);
 	}
 	else if (current_number_a < best->min_number)
 	{
-		while (counter < lista->size && temp_node->content != best->min_number)
+		while (counter < lista->size && temp_node->content != best->max_number)
 		{
 			temp_node = temp_node->next;
 			counter++;
 		}
-		return (counter + 1);
 	}
 	else
 	{
@@ -72,7 +85,21 @@ int	count_moves(t_lista	*lista, int	current_number_a, t_list_utils *best)
 			counter++;
 		}
 	}
-	return (counter);
+	return (get_correct_counter(lista->size, counter, current, true));
+}
+
+t_list_utils	init_list_utils(t_main *main)
+{
+	t_list_utils	util;
+	
+	util.rev_rot_a = false;
+	util.rev_rot_b = false;
+	util.cheapest_content = 0;
+	util.cheapest_rots_a = main->lista_a->size + 1;
+	util.cheapest_rots_b = main->lista_b->size + 1;
+	util.max_number = main->lista_b->head->content;
+	util.min_number = main->lista_b->head->content;
+	return (util);
 }
 
 t_list_utils	find_cheapest_node(t_main *main)
@@ -83,25 +110,20 @@ t_list_utils	find_cheapest_node(t_main *main)
 	t_node			*temp_node;
 
 	temp_node = main->lista_a->head;
-	best.max_number = main->lista_b->head->content;
-	best.min_number = main->lista_b->head->content;
-	best.cheapest_rots_a = main->lista_a->size + 1;
-	best.cheapest_rots_b = main->lista_b->size + 1;
-	
+	best = init_list_utils(main);
 	find_max_min(main->lista_b, &best);
 	current = best;
-	best.cheapest_content = 0;
 	counter = 0;
 	while (counter < main->lista_a->size)
 	{
-		current.cheapest_rots_a = counter;
-		current.cheapest_rots_b = count_moves(main->lista_b, temp_node->content, &best);
+		current.rev_rot_a = false;
+		current.rev_rot_b = false;
+		current.cheapest_rots_a = get_correct_counter(main->lista_a->size, counter, &current, false);
+		current.cheapest_rots_b = count_moves(main->lista_b, temp_node->content, &best, &current);
 		current.cheapest_content = temp_node->content;
 		if (current.cheapest_rots_a + current.cheapest_rots_b
 			< best.cheapest_rots_a + best.cheapest_rots_b)
-		{
-			best = current;	
-		}
+			best = current;
 		counter++;
 		temp_node = temp_node->next;
 	}
@@ -111,32 +133,55 @@ t_list_utils	find_cheapest_node(t_main *main)
 void	sorting_algorithm(t_main *main)
 {
 	t_list_utils	best;
-
-	do_pb(main);
-	do_pb(main);
+	
+	pb(main);
+	pb(main);
 	while (main->lista_a->size > 0)
 	{
 		best = find_cheapest_node(main);
-		while (best.cheapest_rots_a > 0 && best.cheapest_rots_b > 0)
+		while (best.cheapest_rots_a > 0 && best.cheapest_rots_b > 0 && best.rev_rot_a == best.rev_rot_b)
 		{
-			do_rr(main->lista_a, main->lista_b);
+			if (best.rev_rot_a)
+				rrr(main->lista_a, main->lista_b);
+			else
+				rr(main->lista_a, main->lista_b);
 			best.cheapest_rots_a--;
 			best.cheapest_rots_b--;
 		}
 		while (best.cheapest_rots_a > 0)
 		{
-			do_ra(main->lista_a);
+			if (best.rev_rot_a == true)
+				rra(main->lista_a);
+			else
+				ra(main->lista_a);
 			best.cheapest_rots_a--;
 		}
 		while (best.cheapest_rots_b > 0)
 		{
-			do_rb(main->lista_b);
+			if (best.rev_rot_b == true)
+				rrb(main->lista_b);
+			else
+				rb(main->lista_b);
 			best.cheapest_rots_b--;
 		}
-		do_pb(main);
+		pb(main);
 	}
 	while (main->lista_b->head->content != best.max_number)
-		do_rb(main->lista_b);
+	{
+		int		i;
+		t_node	*temp_node;
+		
+		temp_node = main->lista_b->head;
+		while (temp_node->content != best.max_number)
+		{
+			temp_node = temp_node->next;
+			i++;
+		}
+		if (i > main->lista_b->size / 2)
+			rrb(main->lista_b);
+		else
+			rb(main->lista_b);
+	}
 	while (main->lista_b->size > 0)
-		do_pa(main);
+		pa(main);
 }

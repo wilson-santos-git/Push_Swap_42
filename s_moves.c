@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:28:45 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/28 15:49:40 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:40:07 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ bool	do_swap(t_lista *lista)
 	return (true);
 }
 
-void	do_sa(t_lista *lista)
+void	sa(t_lista *lista)
 {
 	if (do_swap(lista))
 		printf("sa\n");
 }
 
-void	do_sb(t_lista *lista)
+void	sb(t_lista *lista)
 {
 	if (do_swap(lista))
 		printf("sb\n");
 }
 
-void	do_ss(t_lista *lista_a, t_lista *lista_b)
+void	ss(t_lista *lista_a, t_lista *lista_b)
 {
 	if (do_swap(lista_a) && do_swap(lista_b))
 		printf("ss\n");

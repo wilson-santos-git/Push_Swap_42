@@ -6,13 +6,13 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/08/30 17:59:14 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:40:14 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	do_pa(t_main *main)
+void	pa(t_main *main)
 {
 	t_node	*temp_node;
 
@@ -47,7 +47,7 @@ void	do_pa(t_main *main)
 	printf("pa\n");
 }
 
-void	do_pb(t_main *main)
+void	pb(t_main *main)
 {
 	t_node	*temp_node;
 
