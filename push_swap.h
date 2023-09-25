@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/18 16:32:41 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:59:54 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void			rrr(t_lista *lista_a, t_lista *lista_b);
 void			find_max_min(t_lista *lista, t_list_utils *best);
 void			parse_args(int argc, char **argv, t_lista *lista);
 int				count_moves_max_min(t_lista	*lista, t_list_utils *best, int	current_number_a);
-int				get_correct_counter(int size, int counter, t_list_utils *current, bool is_rot_b);
+int				get_correct_counter(int size, int counter, t_list_utils *current, bool is_rot);
 int				count_moves(t_lista	*lista, int	current_number_a, t_list_utils *best, t_list_utils *current);
 
 #endif

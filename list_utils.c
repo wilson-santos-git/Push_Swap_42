@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/18 15:57:27 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:39:12 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	check_argv(int argc, char **argv)
 		j = 0;
 		while ((j < ft_strlen(argv[i])))
 		{
-			if (((argv[i][j] == '-' || argv[i][j] == '+') && j != 0) && 
+			if (((argv[i][j] == '-' || argv[i][j] == '+') && j != 0) &&
 				(!ft_isdigit(argv[i][j])))
-				return (0); 
+				return (0);
 			else
 				j++;
 		}
@@ -54,6 +54,50 @@ int	check_argv(int argc, char **argv)
 	if (check_dups(argc, argv))
 		return (0);
 	return (1);
+}
+
+void	index_nodes(t_lista *lista)
+{
+	int		i;
+	int		aux;
+	int		*arr;
+	t_node	*temp_node;
+
+	arr = malloc(lista->size * sizeof(int));
+	if (!arr)
+		return ;
+	temp_node = lista->head;
+	i = 0;
+	while (i < lista->size)
+	{
+		arr[i] = temp_node->content;
+		temp_node = temp_node->next;
+		i++;
+	}
+	i = 0;
+	while (i < lista->size - 1)
+	{
+		if (arr[i] > arr[i + 1])
+		{
+			aux = arr[i];
+			arr[i] = arr[i + 1];
+			arr[i + 1] = aux;
+			i = 0;
+			continue ;
+		}
+		i++;
+	}
+	temp_node = lista->head;
+	aux = 0;
+	while (aux < lista->size)
+	{
+		i = 0;
+		while (arr[i] != temp_node->content)
+			i++;
+		temp_node->id = i;
+		temp_node = temp_node->next;
+		aux++;
+	}
 }
 
 void	parse_args(int argc, char **argv, t_lista *lista)
@@ -81,26 +125,27 @@ void	parse_args(int argc, char **argv, t_lista *lista)
 	lista->tail = temp_node;
 	lista->head->previous = lista->tail;
 	lista->tail->next = lista->head;
+	index_nodes(lista);
 }
 
 void	free_list(t_lista *lista)
 {
 	t_node	*temp_node;
-	t_node	*delete_node;
+	t_node	*current_node;
 
-	if (!lista->head)
+	if (lista->size < 1)
 		return ;
-	temp_node = lista->head->previous;
-	lista->head->previous = NULL;
-	while (1)
+	current_node = lista->head;
+	while (lista->size)
 	{
-		if (temp_node->previous == NULL)
-			break ;
-		delete_node = temp_node;
-		temp_node = temp_node->previous;
-		free(delete_node);
+		if (current_node->next)
+			temp_node = current_node->next;
+		else
+			temp_node = NULL;
+		free(current_node);
+		lista->size--;
+		current_node = temp_node;
 	}
-	free(temp_node);
 }
 
 bool	is_sorted(t_lista *lista)
@@ -112,7 +157,7 @@ bool	is_sorted(t_lista *lista)
 	if (lista->size == 0)
 		return (false);
 	temp_node = lista->head;
-	while (i < lista->size)
+	while (i < lista->size - 1)
 	{
 		if (temp_node->content > temp_node->next->content)
 			return (false);

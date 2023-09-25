@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:44:06 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/18 16:12:03 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:58:47 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ t_list_utils	find_cheapest_node(t_main *main)
 	int				counter;
 	t_node			*temp_node;
 
-	temp_node = main->lista_a->head;
+	temp_node = main->lista_b->head;
 	best = init_list_utils(main);
-	find_max_min(main->lista_b, &best);
+	find_max_min(main->lista_a, &best);
 	current = best;
 	counter = 0;
-	while (counter < main->lista_a->size)
+	while (counter < main->lista_b->size)
 	{
 		current.rev_rot_a = false;
 		current.rev_rot_b = false;
-		current.cheapest_rots_a = get_correct_counter(main->lista_a->size, counter, &current, false);
-		current.cheapest_rots_b = count_moves(main->lista_b, temp_node->content, &best, &current);
+		current.cheapest_rots_b = get_correct_counter(main->lista_b->size, counter, &current, false);
+		current.cheapest_rots_a = count_moves(main->lista_a, temp_node->content, &best, &current);
 		current.cheapest_content = temp_node->content;
 		if (current.cheapest_rots_a + current.cheapest_rots_b
 			< best.cheapest_rots_a + best.cheapest_rots_b)

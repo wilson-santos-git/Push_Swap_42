@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:15:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/18 16:33:08 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:22:59 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 {
 	t_main	main;
 
-	if (argc < 2)
+	if (argc <= 2)
 		return (0);
 	if (!check_argv(argc, argv))
 		return (0);
@@ -50,6 +50,11 @@ int	main(int argc, char **argv)
 	main.lista_a->size = argc - 1;
 	main.lista_b = init_lists();
 	parse_args(argc, argv, main.lista_a);
-	init_alg(&main);
+	if (!is_sorted(main.lista_a))
+		init_alg(&main);
+	free_list(main.lista_b);
+	free_list(main.lista_a);
+	free(main.lista_b);
+	free(main.lista_a);
 	return (0);
 }

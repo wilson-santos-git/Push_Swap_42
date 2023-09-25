@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:55:26 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/18 16:34:06 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/26 00:23:11 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,42 @@ void	final_sort(t_main **main, t_list_utils best)
 	t_node	*temp_node;
 
 	i = 0;
-	temp_node = (*main)->lista_b->head;
-	while ((*main)->lista_b->head->content != best.max_number)
+	temp_node = (*main)->lista_a->head;
+	while ((*main)->lista_a->head->content != best.min_number)
 	{
 		i = 0;
-		temp_node = (*main)->lista_b->head;
+		temp_node = (*main)->lista_a->head;
 		while (temp_node->content != best.max_number)
 		{
 			temp_node = temp_node->next;
 			i++;
 		}
-		if (i > (*main)->lista_b->size / 2)
-			rrb((*main)->lista_b);
+		if (i > (*main)->lista_a->size / 2)
+			rra((*main)->lista_a);
 		else
-			rb((*main)->lista_b);
+			ra((*main)->lista_a);
 	}
-	while ((*main)->lista_b->size > 0)
-		pa((*main));
 }
 
 void	init_alg(t_main *main)
 {
+	int				gap;
 	t_list_utils	best;
 	
-	pb(main);
-	pb(main);
-	while (main->lista_a->size > 0)
+	gap = 0;
+	if (main->lista_a->size >= 100)
+		gap = 65;
+	else if (main->lista_a->size >= 450)
+		gap = 88;
+	while (main->lista_a->size > 2)
+	{
+		if (main->lista_a->head->id >= (main->lista_a->size - gap))
+			pb(main);
+		else
+			ra(main->lista_a);
+	}
+	
+	while (main->lista_b->size > 0)
 	{
 		best = find_cheapest_node(main);
 		while (best.cheapest_rots_a > 0 && best.cheapest_rots_b > 0 && best.rev_rot_a == best.rev_rot_b)
@@ -76,7 +86,7 @@ void	init_alg(t_main *main)
 			best.cheapest_rots_b--;
 		}
 		single_rotations(&main, &best);
-		pb(main);
+		pa(main);
 	}
 	final_sort(&main, best);
 }
