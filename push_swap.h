@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 17:53:08 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/26 23:23:43 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ void			push_util(t_lista	**lista);
 void			push_util_2(t_lista	**lista);
 t_list_utils	init_list_utils(t_main *main);
 t_list_utils	find_cheapest_node(t_main *main);
-int				check_dups(int argc, char **argv);
-int				check_argv(int argc, char **argv);
+char			**ft_split(char const *s, char c);
+bool			check_dups(int argc, char **argv);
+bool			check_argv(int argc, char **argv);
 void			ss(t_lista *lista_a, t_lista *lista_b);
 void			rr(t_lista *lista_a, t_lista *lista_b);
 void			rrr(t_lista *lista_a, t_lista *lista_b);

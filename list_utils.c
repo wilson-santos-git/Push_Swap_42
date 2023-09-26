@@ -6,13 +6,13 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 18:14:19 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/26 23:35:52 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_dups(int argc, char **argv)
+bool	check_dups(int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -20,21 +20,21 @@ int	check_dups(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_atol(argv[i]) >= 2147483647 || ft_atol(argv[i]) <= -2147483648)
-			return (0);
+		if (ft_atol(argv[i]) > 2147483647 || ft_atol(argv[i]) < -2147483648)
+			return (false);
 		j = i + 1;
 		while (j < argc)
 		{
 			if (ft_atoi(argv[i]) == ft_atoi(argv[j]))
-				return (1);
+				return (false);
 			j++;
 		}
 		i++;
 	}
-	return (0);
+	return (true);
 }
 
-int	check_argv(int argc, char **argv)
+bool	check_argv(int argc, char **argv)
 {
 	size_t	i;
 	size_t	j;
@@ -45,17 +45,17 @@ int	check_argv(int argc, char **argv)
 		j = 0;
 		while ((j < ft_strlen(argv[i])))
 		{
-			if (((argv[i][j] == '-' || argv[i][j] == '+') && j != 0) &&
-				(!ft_isdigit(argv[i][j])))
-				return (0);
+			if ((!ft_isdigit(argv[i][j]) && argv[i][j] != '-' && argv[i][j] != '+')
+				|| ((argv[i][j] == '-' || argv[i][j] == '+') && j != 0))
+				return (false);
 			else
 				j++;
 		}
 		i++;
 	}
-	if (check_dups(argc, argv))
-		return (0);	
-	return (1);
+	if (!check_dups(argc, argv))
+		return (false);	
+	return (true);
 }
 
 void	parse_args(int argc, char **argv, t_lista *lista)
