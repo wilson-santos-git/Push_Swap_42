@@ -6,11 +6,11 @@
 #    By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/04 16:40:09 by wteles-d          #+#    #+#              #
-#    Updated: 2023/08/18 17:19:07 by wteles-d         ###   ########.fr        #
+#    Updated: 2023/09/26 17:26:38 by wteles-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	ps
+NAME	=	push_swap
 
 SRCS	=	$(wildcard *.c)
 

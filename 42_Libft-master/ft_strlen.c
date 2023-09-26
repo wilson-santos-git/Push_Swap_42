@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:46:16 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/04/18 17:31:00 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:58:54 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s[i])
-			i++;
+		i++;
 	return (i);
 }

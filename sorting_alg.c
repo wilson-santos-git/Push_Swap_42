@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:55:26 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 00:23:11 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:25:12 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	single_rotations(t_main **main, t_list_utils *best)
 {
-	while (best->cheapest_rots_a > 0)
+	while (best->moves_a > 0)
 	{
 		if (best->rev_rot_a == true)
 			rra((*main)->lista_a);
 		else
 			ra((*main)->lista_a);
-		best->cheapest_rots_a--;
+		best->moves_a--;
 	}
-	while (best->cheapest_rots_b > 0)
+	while (best->moves_b > 0)
 	{
 		if (best->rev_rot_b == true)
 			rrb((*main)->lista_b);
 		else
 			rb((*main)->lista_b);
-		best->cheapest_rots_b--;
+		best->moves_b--;
 	}
 }
 
@@ -55,16 +55,15 @@ void	final_sort(t_main **main, t_list_utils best)
 	}
 }
 
-void	init_alg(t_main *main)
+void	gap_sort(t_main *main)
 {
-	int				gap;
-	t_list_utils	best;
-	
-	gap = 0;
+	int	gap;
+
+	gap = main->lista_a->size;
 	if (main->lista_a->size >= 100)
 		gap = 65;
-	else if (main->lista_a->size >= 450)
-		gap = 88;
+	else if (main->lista_a->size >= 300)
+		gap = 87;
 	while (main->lista_a->size > 2)
 	{
 		if (main->lista_a->head->id >= (main->lista_a->size - gap))
@@ -72,18 +71,25 @@ void	init_alg(t_main *main)
 		else
 			ra(main->lista_a);
 	}
-	
+}
+
+void	init_alg(t_main *main)
+{
+	t_list_utils	best;
+
+	gap_sort(main);
 	while (main->lista_b->size > 0)
 	{
 		best = find_cheapest_node(main);
-		while (best.cheapest_rots_a > 0 && best.cheapest_rots_b > 0 && best.rev_rot_a == best.rev_rot_b)
+		while (best.moves_a > 0 && best.moves_b
+			> 0 && best.rev_rot_a == best.rev_rot_b)
 		{
 			if (best.rev_rot_a)
 				rrr(main->lista_a, main->lista_b);
 			else
 				rr(main->lista_a, main->lista_b);
-			best.cheapest_rots_a--;
-			best.cheapest_rots_b--;
+			best.moves_a--;
+			best.moves_b--;
 		}
 		single_rotations(&main, &best);
 		pa(main);

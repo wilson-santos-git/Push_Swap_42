@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/25 23:39:12 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:14:19 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	check_dups(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
+		if (ft_atol(argv[i]) >= 2147483647 || ft_atol(argv[i]) <= -2147483648)
+			return (0);
 		j = i + 1;
 		while (j < argc)
 		{
@@ -52,52 +54,8 @@ int	check_argv(int argc, char **argv)
 		i++;
 	}
 	if (check_dups(argc, argv))
-		return (0);
+		return (0);	
 	return (1);
-}
-
-void	index_nodes(t_lista *lista)
-{
-	int		i;
-	int		aux;
-	int		*arr;
-	t_node	*temp_node;
-
-	arr = malloc(lista->size * sizeof(int));
-	if (!arr)
-		return ;
-	temp_node = lista->head;
-	i = 0;
-	while (i < lista->size)
-	{
-		arr[i] = temp_node->content;
-		temp_node = temp_node->next;
-		i++;
-	}
-	i = 0;
-	while (i < lista->size - 1)
-	{
-		if (arr[i] > arr[i + 1])
-		{
-			aux = arr[i];
-			arr[i] = arr[i + 1];
-			arr[i + 1] = aux;
-			i = 0;
-			continue ;
-		}
-		i++;
-	}
-	temp_node = lista->head;
-	aux = 0;
-	while (aux < lista->size)
-	{
-		i = 0;
-		while (arr[i] != temp_node->content)
-			i++;
-		temp_node->id = i;
-		temp_node = temp_node->next;
-		aux++;
-	}
 }
 
 void	parse_args(int argc, char **argv, t_lista *lista)
@@ -127,87 +85,3 @@ void	parse_args(int argc, char **argv, t_lista *lista)
 	lista->tail->next = lista->head;
 	index_nodes(lista);
 }
-
-void	free_list(t_lista *lista)
-{
-	t_node	*temp_node;
-	t_node	*current_node;
-
-	if (lista->size < 1)
-		return ;
-	current_node = lista->head;
-	while (lista->size)
-	{
-		if (current_node->next)
-			temp_node = current_node->next;
-		else
-			temp_node = NULL;
-		free(current_node);
-		lista->size--;
-		current_node = temp_node;
-	}
-}
-
-bool	is_sorted(t_lista *lista)
-{
-	int		i;
-	t_node	*temp_node;
-
-	i = 0;
-	if (lista->size == 0)
-		return (false);
-	temp_node = lista->head;
-	while (i < lista->size - 1)
-	{
-		if (temp_node->content > temp_node->next->content)
-			return (false);
-		temp_node = temp_node->next;
-		i++;
-	}
-	return (true);
-}
-
-// void	print_lists(t_main *main)
-// {
-// 	int		i;
-// 	t_node	*temp_node;
-
-// 	i = 1;
-// 	//printf("LISTA A SIZE: %i\n", main->lista_a->size);
-// 	if (main->lista_a->size > 0)
-// 	{
-// 		temp_node = main->lista_a->head;
-// 		printf("LISTA A: ");
-// 		while (i < main->lista_a->size)
-// 		{
-// 			printf("%i, ", temp_node->content);
-// 			//printf("P:   %i\nC: ->%i<-\nN:   %i\n\n", temp_node->previous->content, temp_node->content, temp_node->next->content);
-// 			if (temp_node->next->content == main->lista_a->tail->content)
-// 				break ;
-// 			temp_node = temp_node->next;
-// 			i++;
-// 		}
-// 		temp_node = temp_node->next;
-// 		printf("%i\n", temp_node->content);
-// 		//printf("P:   %i\nC: ->%i<-\nN:   %i\n\n", main->lista_a->tail->previous->content, main->lista_a->tail->content, main->lista_a->tail->next->content);
-// 	}
-// 	i = 1;
-// 	//printf("LISTA B SIZE: %i\n", main->lista_b->size);
-// 	if (main->lista_b->size > 0)
-// 	{
-// 		temp_node = main->lista_b->head;
-// 		printf("LISTA B: ");
-// 		while (i < main->lista_b->size)
-// 		{
-// 			printf("%i, ", temp_node->content);
-// 			//printf("P:   %i\nC: ->%i<-\nN:   %i\n\n", temp_node->previous->content, temp_node->content, temp_node->next->content);
-// 			if (temp_node->next->content == main->lista_b->tail->content)
-// 				break ;
-// 			temp_node = temp_node->next;
-// 			i++;
-// 		}
-// 		temp_node = temp_node->next;
-// 		printf("%i\n", temp_node->content);
-// 		//printf("P:   %i\nC: ->%i<-\nN:   %i\n\n", main->lista_b->tail->previous->content, main->lista_b->tail->content, main->lista_b->tail->next->content);
-// 	}
-// }

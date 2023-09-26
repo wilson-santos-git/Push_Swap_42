@@ -6,20 +6,20 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:45:39 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 00:15:33 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:45:27 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	count_moves_max_min(t_lista	*lista, t_list_utils *best, int	current_number_b)
+int	count_min_max(t_lista *lista, t_list_utils *best, int current_number_b)
 {
 	int		counter;
-	t_node *temp_node;
-	
+	t_node	*temp_node;
+
 	counter = 0;
 	temp_node = lista->head;
-  	if (current_number_b > best->max_number)
+	if (current_number_b > best->max_number)
 	{
 		while (counter < lista->size && temp_node->content != best->min_number)
 		{
@@ -38,33 +38,33 @@ int	count_moves_max_min(t_lista	*lista, t_list_utils *best, int	current_number_b
 	return (counter);
 }
 
-int	count_moves(t_lista	*lista, int	current_number_b, t_list_utils *best, t_list_utils *current)
+int	count_moves(t_lista *lista, int curr_b, \
+t_list_utils *best, t_list_utils *current)
 {
-	(void) current;
 	int		counter;
-	t_node *temp_node;
-	
+	t_node	*temp_node;
+
 	counter = 0;
+	(void) current;
 	temp_node = lista->head;
-	if (current_number_b > best->max_number || current_number_b < best->min_number)
-		counter = count_moves_max_min(lista, best, current_number_b);
+	if (curr_b > best->max_number || curr_b < best->min_number)
+		counter = count_min_max(lista, best, curr_b);
 	else
 	{
 		while (counter < lista->size)
 		{
-			if (current_number_b > temp_node->previous->content
-				&& current_number_b < temp_node->content)
+			if (curr_b > temp_node->previous->content
+				&& curr_b < temp_node->content)
 				break ;
 			temp_node = temp_node->next;
 			counter++;
 		}
 	}
-	return (get_correct_counter(lista->size, counter, current, true));
+	return (rectify_counter(lista->size, counter, current, true));
 }
 
-int	get_correct_counter(int size, int counter, t_list_utils *current, bool is_rot)
+int	rectify_counter(int size, int counter, t_list_utils *current, bool is_rot)
 {
-	
 	if (counter >= size / 2)
 	{
 		if (is_rot)
