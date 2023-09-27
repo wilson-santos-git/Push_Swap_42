@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 16:46:28 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:50:22 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	pa(t_main *main)
 		main->lista_a->tail->next = main->lista_a->head;
 	}
 	main->lista_a->size++;
-	printf("pa\n");
+	write(1, "pa\n", 3);
 }
 
 void	pb(t_main *main)
@@ -79,5 +79,5 @@ void	pb(t_main *main)
 		main->lista_b->tail->next = main->lista_b->head;
 	}
 	main->lista_b->size++;
-	printf("pb\n");
+	write(1, "pb\n", 3);
 }

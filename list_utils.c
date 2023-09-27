@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 23:35:52 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:44:26 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ bool	check_argv(int argc, char **argv)
 		j = 0;
 		while ((j < ft_strlen(argv[i])))
 		{
-			if ((!ft_isdigit(argv[i][j]) && argv[i][j] != '-' && argv[i][j] != '+')
+			if ((!ft_isdigit(argv[i][j])
+				&& argv[i][j] != '-' && argv[i][j] != '+')
 				|| ((argv[i][j] == '-' || argv[i][j] == '+') && j != 0))
 				return (false);
 			else
@@ -54,7 +55,7 @@ bool	check_argv(int argc, char **argv)
 		i++;
 	}
 	if (!check_dups(argc, argv))
-		return (false);	
+		return (false);
 	return (true);
 }
 

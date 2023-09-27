@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:55:26 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 17:25:12 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:05:34 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ void	single_rotations(t_main **main, t_list_utils *best)
 			rb((*main)->lista_b);
 		best->moves_b--;
 	}
+}
+
+void	mini_alg(t_main *main)
+{
+	while (main->lista_a->size > 3)
+		pb(main);
+	if (!is_sorted(main->lista_a))
+		sa(main->lista_a);
+	return ;
 }
 
 void	final_sort(t_main **main, t_list_utils best)
@@ -77,22 +86,27 @@ void	init_alg(t_main *main)
 {
 	t_list_utils	best;
 
-	gap_sort(main);
-	while (main->lista_b->size > 0)
+	if (main->lista_a->size <= 5)
+		mini_alg(main);
+	else
 	{
-		best = find_cheapest_node(main);
-		while (best.moves_a > 0 && best.moves_b
-			> 0 && best.rev_rot_a == best.rev_rot_b)
+		gap_sort(main);
+		while (main->lista_b->size > 0)
 		{
-			if (best.rev_rot_a)
-				rrr(main->lista_a, main->lista_b);
-			else
-				rr(main->lista_a, main->lista_b);
-			best.moves_a--;
-			best.moves_b--;
+			best = find_cheapest_node(main);
+			while (best.moves_a > 0 && best.moves_b
+				> 0 && best.rev_rot_a == best.rev_rot_b)
+			{
+				if (best.rev_rot_a)
+					rrr(main->lista_a, main->lista_b);
+				else
+					rr(main->lista_a, main->lista_b);
+				best.moves_a--;
+				best.moves_b--;
+			}
+			single_rotations(&main, &best);
+			pa(main);
 		}
-		single_rotations(&main, &best);
-		pa(main);
+		final_sort(&main, best);
 	}
-	final_sort(&main, best);
 }

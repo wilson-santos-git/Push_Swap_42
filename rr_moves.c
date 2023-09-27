@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:50:25 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 16:47:06 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:49:51 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ bool	do_reverse_rotate(t_lista *lista)
 void	rra(t_lista *lista)
 {
 	if (do_reverse_rotate(lista))
-		printf("rra\n");
+		write(1, "rra\n", 4);
 }
 
 void	rrb(t_lista *lista)
 {
 	if (do_reverse_rotate(lista))
-		printf("rrb\n");
+		write(1, "rrb\n", 4);
 }
 
 void	rrr(t_lista *lista_a, t_lista *lista_b)
 {
 	if (do_reverse_rotate(lista_a) && do_reverse_rotate(lista_b))
-		printf("rrr\n");
+		write(1, "rrr\n", 4);
 }

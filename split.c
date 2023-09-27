@@ -6,13 +6,13 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 23:21:37 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 23:22:17 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/27 15:13:20 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	ft_count_words(char const *s, char c)
+int	ft_count_words(char const *s, char c)
 {
 	int	h;
 	int	count;
@@ -28,7 +28,7 @@ static int	ft_count_words(char const *s, char c)
 	return (count);
 }
 
-static int	size_word(char const *s, char c, int i)
+int	size_word(char const *s, char c, int i)
 {
 	int	size;
 
@@ -41,14 +41,14 @@ static int	size_word(char const *s, char c, int i)
 	return (size);
 }
 
-static void	ft_free_all(char **p)
+void	ft_free_all(char **p)
 {
 	while (p && *p)
 		free(*p++);
 	free (p);
 }
 
-static int	ft_alloc_word(char **p, char const *s, int i, char c)
+int	ft_alloc_word(char **p, char const *s, int i, char c)
 {
 	*p = (char *)ft_calloc(size_word(s, c, i) + 1, sizeof(char));
 	if (!p)
