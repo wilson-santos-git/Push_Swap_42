@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:10:22 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/27 17:05:37 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:27:41 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ typedef struct s_list_utils
 	int		cheapest_content;
 }					t_list_utils;
 
+typedef struct s_split_args
+{
+	int		count;
+	char	**strings;
+}					t_split_args;
+
 void			pa(t_main *main);
 void			pb(t_main *main);
 t_lista			*init_lists(void);
@@ -64,6 +70,7 @@ void			rrb(t_lista *lista);
 long int		ft_atol(char *nptr);
 void			ft_putstr(char *str);
 void			init_alg(t_main *main);
+void			mini_alg(t_main *main);
 t_node			*init_node(int content);
 bool			is_sorted(t_lista *lista);
 void			free_list(t_lista *lista);
@@ -75,12 +82,12 @@ t_list_utils	find_cheapest_node(t_main *main);
 char			**ft_split(char const *s, char c);
 bool			check_dups(int argc, char **argv);
 bool			check_argv(int argc, char **argv);
-char			**ft_joinsplit(int argc, char **argv);
+t_split_args	ft_joinsplit(int argc, char **argv);
 int				ft_count_words(char const *s, char c);
 void			ss(t_lista *lista_a, t_lista *lista_b);
 void			rr(t_lista *lista_a, t_lista *lista_b);
 void			rrr(t_lista *lista_a, t_lista *lista_b);
-void			final_sort(t_main **main, t_list_utils best);
+void			final_sort(t_main *main, t_list_utils best);
 void			find_max_min(t_lista *lista, t_list_utils *best);
 void			parse_args(int argc, char **argv, t_lista *lista);
 int				count_min_max(t_lista *lista, t_list_utils *best, \

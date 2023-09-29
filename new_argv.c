@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:54:37 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/27 16:45:18 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:31:33 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,25 @@ char	*new_strjoin(char *s1, char *s2)
 	return (p);
 }
 
-char	**ft_joinsplit(int argc, char **argv)
+t_split_args	ft_joinsplit(int argc, char **argv)
 {
-	int		i;
-	char	*str;
+	int				i;
+	char			*str;
+	t_split_args	temp;
 
+	temp.count = argc;
+	temp.strings = argv;
 	str = argv[0];
 	if (argc < 3)
-		return (argv);
+		return (temp);
 	i = 1;
 	while (argv[i])
 	{
 		str = new_strjoin(str, argv[i]);
 		i++;
 	}
-	return (ft_split(str, ' '));
+	temp.count = i;
+	temp.strings = ft_split(str, ' ');
+	return (temp);
 }
 
