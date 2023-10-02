@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 17:05:56 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/27 14:44:26 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:55:58 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,17 @@ void	parse_args(int argc, char **argv, t_lista *lista)
 	lista->head->previous = lista->tail;
 	lista->tail->next = lista->head;
 	index_nodes(lista);
+}
+
+void	free_arr_strings(char **arr)
+{
+	int	i;
+	
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }

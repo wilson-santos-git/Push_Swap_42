@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:31:10 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 17:51:19 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/02 17:58:39 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	ft_atoi(const char *nptr)
 	i = 0;
 	total = 0;
 	n = 1;
+	if (!nptr)
+		return (0);
 	while (nptr[i] != '\0' && ft_isspace(nptr[i]))
 		i++;
 	if (nptr[i] != '\0' && (nptr[i] == '-' || nptr[i] == '+'))

@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 17:51:59 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/26 17:52:52 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:00:03 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ static int	ft_isspace(char c)
 long int	ft_atol(char *nptr)
 {
 	long int	i;
-	long int	total;
 	long int	n;
+	long int	total;
 
 	i = 0;
 	n = 1;
 	total = 0;
+	if (!nptr)
+		return (0);
 	while (nptr[i] != '\0' && ft_isspace(nptr[i]))
 		i++;
 	if (nptr[i] != '\0' && (nptr[i] == '-' || nptr[i] == '+'))

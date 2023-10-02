@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:55:26 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/09/29 16:59:28 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:04:52 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ void	gap_sort(t_main *main)
 		if (main->lista_a->head->id >= (main->lista_a->size - gap))
 		{
 			pb(main);
-			if (main->lista_b->size == 3 && main->lista_b->head->content > main->lista_b->head->next->content)
+			if (main->lista_b->size == 3
+				&& main->lista_b->head->content
+				> main->lista_b->head->next->content)
 				rb(main->lista_b);
 		}
 		else

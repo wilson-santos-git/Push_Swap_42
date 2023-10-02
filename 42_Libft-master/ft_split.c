@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:36:59 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/04/24 17:34:59 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/02 17:53:35 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include "libft.h"
 
-static int	ft_count_words(char const *s, char c)
+int	ft_count_words(char const *s, char c)
 {
 	int	h;
 	int	count;
@@ -23,14 +23,21 @@ static int	ft_count_words(char const *s, char c)
 	count = 0;
 	while (s && s[h])
 	{
-		if (s[h] != c && (s[h - 1] == c || h == 0))
+		if (s[h] == c)
+		{
+			while (s[h] == c && s[h])
+				h++;
+			count += (s[h] != '\0');
+			continue;
+		}
+		else if(count == 0)
 			count++;
 		h++;
 	}
 	return (count);
 }
 
-static int	size_word(char const *s, char c, int i)
+int	size_word(char const *s, char c, int i)
 {
 	int	size;
 
@@ -43,17 +50,17 @@ static int	size_word(char const *s, char c, int i)
 	return (size);
 }
 
-static void	ft_free_all(char **p)
+void	ft_free_all(char **p)
 {
 	while (p && *p)
 		free(*p++);
 	free (p);
 }
 
-static int	ft_alloc_word(char **p, char const *s, int i, char c)
+int	ft_alloc_word(char **p, char const *s, int i, char c)
 {
-	*p = (char *)ft_calloc(size_word(s, c, i) + 1, sizeof(char));
-	if (!p)
+	*p = malloc((size_word(s, c, i) + 1) * sizeof(char));
+	if (!*p)
 		return (0);
 	ft_strlcpy(*p, s + i, (size_t)size_word(s, c, i) + 1);
 	return (1);
@@ -67,10 +74,10 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	j = 0;
-	p = (char **)ft_calloc(ft_count_words(s, c) + 1, sizeof(char *));
+	p = ft_calloc(((ft_count_words(s, c)) + 1), sizeof(char *));
 	if (!p || !s)
 		return (p);
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[i] != c)
 		{
