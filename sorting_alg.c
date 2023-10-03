@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:55:26 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/10/02 15:04:52 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:42:41 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ void	gap_sort(t_main *main)
 	int	gap;
 
 	gap = main->lista_a->size;
-	if (main->lista_a->size >= 100)
+	mini_alg(main);
+	if (is_sorted(main->lista_a))
+		return ;
+	if (main->lista_a->size >= 100 && main->lista_a->size < 300)
 		gap = 65;
 	else if (main->lista_a->size >= 300)
 		gap = 87;
@@ -78,6 +81,27 @@ void	gap_sort(t_main *main)
 		else
 			ra(main->lista_a);
 	}
+}
+
+void	mini_alg(t_main *main)
+{
+	if (main->lista_a->size == 3)
+	{
+		if (!is_sorted(main->lista_a) && main->lista_a->head->id == 0)
+			ra(main->lista_a);
+		if (!is_sorted(main->lista_a))
+			sa(main->lista_a);
+		if (!is_sorted(main->lista_a)
+			&& main->lista_a->head->content
+			> main->lista_a->head->next->content)
+			sa(main->lista_a);
+		if (!is_sorted(main->lista_a))
+			rra(main->lista_a);
+		if (!is_sorted(main->lista_a))
+			sa(main->lista_a);
+	}
+	else
+		return ;
 }
 
 void	init_alg(t_main *main)
@@ -106,5 +130,6 @@ void	init_alg(t_main *main)
 		single_rotations(&main, &best);
 		pa(main);
 	}
-	final_sort(main, best);
+	if (!is_sorted(main->lista_a))
+		final_sort(main, best);
 }
