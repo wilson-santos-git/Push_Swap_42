@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 15:36:59 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/10/02 17:53:35 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:44:50 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	ft_count_words(char const *s, char c)
 			while (s[h] == c && s[h])
 				h++;
 			count += (s[h] != '\0');
-			continue;
+			continue ;
 		}
-		else if(count == 0)
+		else if (count == 0)
 			count++;
 		h++;
 	}

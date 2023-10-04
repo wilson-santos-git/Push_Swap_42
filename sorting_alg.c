@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:55:26 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/10/03 22:42:41 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/04 16:07:26 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	final_sort(t_main *main, t_list_utils best)
 
 	i = 0;
 	temp_node = main->lista_a->head;
+	if (is_sorted(main->lista_a))
+		return ;
 	find_max_min(main->lista_a, &best);
 	while (main->lista_a->head->content != best.min_number)
 	{
@@ -130,6 +132,5 @@ void	init_alg(t_main *main)
 		single_rotations(&main, &best);
 		pa(main);
 	}
-	if (!is_sorted(main->lista_a))
-		final_sort(main, best);
+	final_sort(main, best);
 }

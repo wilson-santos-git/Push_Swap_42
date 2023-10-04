@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:15:29 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/10/02 18:13:57 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:40:13 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ int	main(int argc, char **argv)
 	t_split_args	new;
 	t_main			main;
 
-	if (argc <= 2)
+	if (argc < 2)
 		return (0);
 	new = ft_joinsplit(argc, argv);
 	if (!check_argv(new.count, new.strings))
 	{
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 		free_arr_strings(new.strings);
 		return (0);
 	}
 	main.lista_a = init_lists();
-	main.lista_a->size = argc - 1;
+	main.lista_a->size = new.count - 1;
 	main.lista_b = init_lists();
 	parse_args(new.count, new.strings, main.lista_a);
 	free_arr_strings(new.strings);

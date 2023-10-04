@@ -6,7 +6,7 @@
 /*   By: wteles-d <wteles-d@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 23:21:37 by wteles-d          #+#    #+#             */
-/*   Updated: 2023/10/02 17:55:24 by wteles-d         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:00:43 by wteles-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	__ft_count_words(char const *s, char c)
 			while (s[h] == c && s[h])
 				h++;
 			count += (s[h] != '\0');
-			continue;
+			continue ;
 		}
-		else if(count == 0)
+		else if (count == 0)
 			count++;
 		h++;
 	}
@@ -91,46 +91,3 @@ char	**__ft_split(char const *s, char c)
 	}
 	return (p);
 }
-
-// int	main(void)
-// {
-// 	char	**str = ft_split("       olol", ' ');
-// 	int		x = 0;
-// 	while	(str[x])
-// 	{		
-// 		printf("%s\n", str[x]);
-// 		x++;
-// 	}
-// }
-
-// char	**__split(char const *s, char c, int j, char **list)
-// {
-// 	char	*t;
-// 	int		i;
-
-// 	i = 0;
-// 	t = 0;
-// 	while (s && c == *s && *s)
-// 		s++;
-// 	while (s && s[i] != c && s[i])
-// 		i++;
-// 	if (i > 0)
-// 		t = ft_calloc((i + 1), sizeof(char));
-// 	if (i > 0)
-// 		t[i] = 0;
-// 	i = 0;
-// 	while (s && t && s && *s != c && *s)
-// 		t[i++] = *s++;
-// 	if (++j >= 0 && i)
-// 		list = __split(s, c, j, list);
-// 	else if (!list)
-// 		list = ft_calloc(j, sizeof(char *));
-// 	if (list)
-// 		list[--j] = t;
-// 	return (list);
-// }
-
-// char	**ft_split(char const *s, char c)
-// {
-// 	return (__split(s, c, 0, 0));
-// }
